@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encontrar el Máximo (Divide y Vencerás)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Encontrar el Número Máximo</h1>
+        <p>Ingresa números separados por comas:</p>
+        <input type="text" id="numerosInput" placeholder="Ejemplo: 3, 8, 2, 10, 5, 7">
+        <div class="botones">
+            <button onclick="encontrarMaximo()">Encontrar Máximo</button>
+            <button onclick="borrarContenido()">Borrar</button>
+        </div>
+        <div id="resultado" class="resultado-oculto">
+            El número máximo es: <span id="maximoNumero"></span>
+        </div>
+    </div>
+
+    <script>
+        function findMax(arr) {
+            if (arr.length === 1) {
+                return arr[0];
+            }
+            const mid = Math.floor(arr.length / 2);
+            const left = arr.slice(0, mid);
+            const right = arr.slice(mid);
+            const leftMax = findMax(left);
+            const rightMax = findMax(right);
+            return Math.max(leftMax, rightMax);
+        }
+
+        function encontrarMaximo() {
+            const inputNumeros = document.getElementById("numerosInput").value;
+            const numerosTexto = inputNumeros.split(',');
+            const numeros = numerosTexto.map(num => parseInt(num.trim())).filter(num => !isNaN(num));
+
+            if (numeros.length > 0) {
+                const maximo = findMax(numeros);
+                document.getElementById("maximoNumero").textContent = maximo;
+                document.getElementById("resultado").classList.remove("resultado-oculto");
+                document.getElementById("resultado").classList.add("resultado-visible");
+            } else {
+                alert("Por favor, ingresa números válidos separados por comas.");
+                document.getElementById("resultado").classList.remove("resultado-visible");
+                document.getElementById("resultado").classList.add("resultado-oculto");
+            }
+        }
+
+        function borrarContenido() {
+            document.getElementById("numerosInput").value = ""; // Borra el texto del input
+            document.getElementById("resultado").classList.remove("resultado-visible");
+            document.getElementById("resultado").classList.add("resultado-oculto"); // Oculta el resultado
+        }
+    </script>
+    <script src="app.js"></script>
+</body>
+</html>

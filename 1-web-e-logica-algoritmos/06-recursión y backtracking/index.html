@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encontrar Palabra Más Larga</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Encuentra la Palabra Más Larga</h1>
+    <textarea id="inputText" rows="4" cols="50" placeholder="Ingresa tu texto aquí"></textarea>
+    <button onclick="mostrarPalabraLarga()">Encontrar</button>
+    <div id="resultado"></div>
+
+    <script>
+        function findLongestWord(text) {
+            const words = text.split(' ');
+            let longestWord = '';
+            for (let i = 0; i < words.length; i++) {
+                const currentWord = words[i];
+                if (currentWord.length > longestWord.length) {
+                    longestWord = currentWord;
+                }
+            }
+            return longestWord;
+        }
+
+        function mostrarPalabraLarga() {
+            const textoIngresado = document.getElementById("inputText").value;
+            const palabraMasLarga = findLongestWord(textoIngresado);
+            document.getElementById("resultado").textContent = "La palabra más larga es: " + palabraMasLarga;
+        }
+    </script>
+    <script src="app.js"></script>
+</body>
+</html>
